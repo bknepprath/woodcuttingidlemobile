@@ -1,8 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5h4n2t4dfutq"]
+[gd_scene load_steps=10 format=3 uid="uid://c5h4n2t4dfutq"]
 
 [ext_resource type="Script" uid="uid://xlkc4gltjcuo" path="res://main.gd" id="1_r0du0"]
 [ext_resource type="Texture2D" uid="uid://bplmcukoetf7q" path="res://assets/sprites/environment/environment_tree_placeholder.png" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://cjgbh6f3dguj7" path="res://assets/sprites/characters/character_woodcutter_placeholder.png" id="3_fos0i"]
+
+[sub_resource type="Gradient" id="Gradient_r0du0"]
+offsets = PackedFloat32Array(0, 0.65510947)
+colors = PackedColorArray(0, 0, 0, 0.41960785, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cm0pq"]
+gradient = SubResource("Gradient_r0du0")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dxm6"]
 bg_color = Color(0.20152655, 0.20152661, 0.20152646, 1)
@@ -14,28 +25,79 @@ corner_radius_bottom_left = 45
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0du0"]
 bg_color = Color(0.8394755, 0.55352473, 9.62615e-07, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
+bg_color = Color(0.93301755, 0.92938095, 0.92299604, 1)
+border_width_top = 10
+border_color = Color(0, 0, 0, 1)
+shadow_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fos0i"]
+content_margin_bottom = 28.0
+bg_color = Color(0.7194535, 2.5509298e-06, 5.7756904e-07, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+shadow_size = 5
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_r0du0")
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="ActionPoint" type="Node2D" parent="."]
-position = Vector2(540, 830)
+[node name="background" type="Node2D" parent="World"]
 
-[node name="EnvironmentTreePlaceholder" type="Sprite2D" parent="ActionPoint"]
+[node name="background_grass2" type="ColorRect" parent="World/background"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 704.0
+offset_right = 1440.0
+offset_bottom = 905.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23917964, 0.51982564, 0.3188583, 0.99607843)
+
+[node name="background_grass" type="ColorRect" parent="World/background"]
+z_index = -2
+custom_minimum_size = Vector2(1440, 3140)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1440.0
+offset_bottom = 3140.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(7.719285e-06, 0.70675737, 0.34488705, 0.99607843)
+
+[node name="ActionPoint" type="Node2D" parent="World"]
+position = Vector2(720, 830)
+
+[node name="Environment_Tree_Shadow" type="Sprite2D" parent="World/ActionPoint"]
+position = Vector2(0, -33.835)
+scale = Vector2(1, 0.535)
+texture = SubResource("GradientTexture2D_cm0pq")
+
+[node name="EnvironmentTreePlaceholder" type="Sprite2D" parent="World/ActionPoint"]
 texture = ExtResource("2_cm0pq")
 offset = Vector2(0, -229)
 
-[node name="CharacterWoodcutterPlaceholder" type="Sprite2D" parent="ActionPoint/EnvironmentTreePlaceholder"]
+[node name="CharacterWoodcutterPlaceholder" type="Sprite2D" parent="World/ActionPoint/EnvironmentTreePlaceholder"]
 position = Vector2(-160, -12)
 texture = ExtResource("3_fos0i")
 offset = Vector2(-5, -88)
 
 [node name="UI_Logs" type="PanelContainer" parent="."]
-offset_left = 750.0
-offset_top = 150.0
-offset_right = 995.0
-offset_bottom = 250.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1095.0
+offset_top = 200.0
+offset_right = 1340.0
+offset_bottom = 300.0
+grow_horizontal = 0
 pivot_offset = Vector2(245, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_3dxm6")
 
@@ -60,14 +122,61 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 140.0
-offset_top = 880.0
-offset_right = 940.0
-offset_bottom = 920.0
+offset_left = 298.0
+offset_top = 1362.0
+offset_right = 1098.0
+offset_bottom = 1402.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_r0du0")
 max_value = 3.0
 show_percentage = false
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UIRoot" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = 7.0
+offset_right = -35.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MiddleMenu" type="Panel" parent="UI/UIRoot"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -950.0
+offset_top = -1570.0
+offset_right = 1050.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(1000, 1700)
+theme_override_styles/panel = SubResource("StyleBoxFlat_cm0pq")
+
+[node name="ManualChopButton" type="Button" parent="UI/UIRoot/MiddleMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 200.0
+offset_right = 250.0
+offset_bottom = 700.00006
+grow_horizontal = 2
+pivot_offset = Vector2(260, 0)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 146
+theme_override_styles/normal = SubResource("StyleBoxFlat_fos0i")
+text = "Chop"
+
 [connection signal="timeout" from="ChopTimer" to="." method="_on_chop_timer_timeout"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/ManualChopButton" to="." method="_on_manual_chop_button_pressed"]

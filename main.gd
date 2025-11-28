@@ -5,7 +5,7 @@ var logs: int = 0
 @onready var logs_label: Label = $UI_Logs/LogsLabel
 @onready var chop_progress: ProgressBar = $ChopProgress
 @onready var chop_timer: Timer = $ChopTimer
-@onready var woodcutter := $ActionPoint/EnvironmentTreePlaceholder/CharacterWoodcutterPlaceholder
+@onready var woodcutter := $World/ActionPoint/EnvironmentTreePlaceholder/CharacterWoodcutterPlaceholder
 
 
 func _ready() -> void:
@@ -70,8 +70,16 @@ func chop_log() -> void:
 	logs += 1
 	update_logs()
 
+func manual_chop():
+	logs += 1
+	update_logs()
+
 
 func _on_chop_timer_timeout() -> void:
 	chop_log()
 	# Timer auto-restarts because One Shot is false
 	# Bar will naturally go back to 0 because time_left resets
+
+
+func _on_manual_chop_button_pressed() -> void:
+	manual_chop()
