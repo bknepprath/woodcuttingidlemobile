@@ -1,0 +1,16 @@
+# Godot 4+
+.godot/
+.import/
+mono/
+export_presets.cfg
+
+# Android build
+/android/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.log
