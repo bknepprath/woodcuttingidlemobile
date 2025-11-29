@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmb5sba278atm"]
+
+[ext_resource type="Script" uid="uid://hl0j2wsisqo8" path="res://scripts/UiPill.gd" id="1_d1btc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jdapy"]
+bg_color = Color(0, 0, 0, 0.7019608)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
+
+[node name="UiPill" type="PanelContainer"]
+custom_minimum_size = Vector2(280, 120)
+offset_right = 10.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jdapy")
+script = ExtResource("1_d1btc")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="HBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+vertical_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+horizontal_alignment = 2
+vertical_alignment = 1
