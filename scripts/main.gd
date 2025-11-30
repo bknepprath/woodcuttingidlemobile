@@ -9,6 +9,8 @@ const COLLECT_LOG_SCENE: PackedScene = preload("res://scenes/CollectLog.tscn")
 # State
 # -------------------------------------------------------------------
 var logs: int = 0
+var xp: int = 0
+var woodcut_level: int = 1
 
 # -------------------------------------------------------------------
 # Utility functions
@@ -32,15 +34,32 @@ func format_number(n: int) -> String:
 	else:
 		return "%.2f%s" % [value, suffixes[index]]
 
+func get_level_for_xp(total_xp: int) -> int:
+	var lvl := 1
+	var points := 0.0
+	var xp_to_next := 0
+
+	while true:
+		points += floor(lvl + 300.0 * pow(2.0, float(lvl) / 7.0))
+		xp_to_next = floor(points / 4.0)
+
+		if xp_to_next > total_xp:
+			return lvl
+
+		lvl += 1
+	return lvl
 
 # -------------------------------------------------------------------
 # Node references
 # -------------------------------------------------------------------
-@onready var logs_label: Label = $UI/UIRoot/UI_Logs/LogPill/LogsCenter/LogsLabel
 @onready var chop_progress: ProgressBar = $ChopProgress
 @onready var chop_timer: Timer = $ChopTimer
 @onready var woodcutter: Node2D = $World/ActionPoint/EnvironmentTreePlaceholder/CharacterWoodcutterPlaceholder
 @onready var log_spawn: Node2D = $World/ActionPoint/EnvironmentTreePlaceholder/Point_Spawn_Log
+
+@onready var logs_label: Label = $UI/UIRoot/UI_Logs/LogPill/LogsCenter/LogsLabel
+@onready var woodcut_level_label: Label = $UI/UIRoot/WoodcutLevelLabel
+@onready var woodcut_xp_label: Label = $UI/UIRoot/WoodcutXPLabel
 
 
 func _ready() -> void:
@@ -102,9 +121,14 @@ func animate_woodcutter(ratio: float) -> void:
 # -------------------------------------------------------------------
 func update_logs() -> void:
 	logs_label.text = format_number(logs)
+	
+func update_woodcut_ui() -> void:
+	woodcut_level_label.text = "Lvl " + str(woodcut_level)
+	woodcut_xp_label.text = format_number(xp) + " xp"
 
 
 func add_logs(amount: int = 1) -> void:
+	add_xp(amount * 10)
 	logs += amount
 	update_logs()
 	spawn_collect_logs(amount)
@@ -118,11 +142,45 @@ func spawn_collect_logs(count: int) -> void:
 
 
 func chop_log() -> void:
-	add_logs(1)
+	var chance := get_chop_success_chance(woodcut_level)
+	if randf() <= chance:
+		add_logs(1)
+	else:
+		pass
 
 
 func manual_chop() -> void:
-	add_logs(1)
+	chop_log()
+
+func add_xp(amount: int) -> void:
+	xp += amount
+	var new_level := get_level_for_xp(xp)
+
+	if new_level > woodcut_level:
+		woodcut_level = new_level
+		_on_woodcut_level_up(new_level)
+
+	update_woodcut_ui()
+
+func _on_woodcut_level_up(new_level: int) -> void:
+	print("Woodcutting level up! New level: ", new_level)
+
+func get_chop_success_chance(level: int) -> float:
+	# Exponential curve (RuneScape-like feeling):
+	# base = 1 - e^(-level / 20)
+
+	var base := 1.0 - exp(-float(level) / 20.0)
+
+	# Now scale it so:
+	# level 1 = 0.15
+	# level 50 = 0.85
+	# level 99+ = 1.00
+
+	var min_val := 0.15
+	var max_val := 1.0
+
+	var scaled := min_val + base * (max_val - min_val)
+	return clamp(scaled, min_val, max_val)
 
 
 # -------------------------------------------------------------------

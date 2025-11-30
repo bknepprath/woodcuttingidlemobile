@@ -161,8 +161,8 @@ size_flags_horizontal = 4
 
 [node name="LogsCenter" type="CenterContainer" parent="UI/UIRoot/UI_Logs/LogPill"]
 layout_mode = 0
-offset_left = -40.94
-offset_right = 98.354996
+offset_left = -75.0
+offset_right = 125.0
 offset_bottom = 88.0
 
 [node name="LogsLabel" type="Label" parent="UI/UIRoot/UI_Logs/LogPill/LogsCenter"]
@@ -220,6 +220,40 @@ theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 146
 theme_override_styles/normal = SubResource("StyleBoxFlat_fos0i")
 text = "Chop"
+
+[node name="WoodcutLevelLabel" type="Label" parent="UI/UIRoot"]
+custom_minimum_size = Vector2(109.225, 0)
+layout_mode = 0
+offset_left = 100.0
+offset_top = 206.0
+offset_right = 209.225
+offset_bottom = 294.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r0du0")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WoodcutXPLabel" type="Label" parent="UI/UIRoot"]
+custom_minimum_size = Vector2(109.225, 0)
+layout_mode = 0
+offset_left = 103.0
+offset_top = 305.0
+offset_right = 212.225
+offset_bottom = 393.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_r0du0")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="UiPill" parent="UI" instance=ExtResource("6_c01mt")]
 visible = false
