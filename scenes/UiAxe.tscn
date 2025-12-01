@@ -15,11 +15,16 @@
 script = ExtResource("2_6h1af")
 metadata/_custom_type_script = "uid://byga4xgs7ehy3"
 
-[node name="AxeWrapper" type="Node2D" node_paths=PackedStringArray("head_sprite", "handle_sprite")]
+[node name="AxeWrapper" type="Node2D" node_paths=PackedStringArray("head_sprite", "handle_sprite", "trim_sprite", "grip_color_sprite", "grip_lineart_sprite", "gem_color_sprite", "gem_lineart_sprite")]
 script = ExtResource("1_1wxem")
 axe_state = SubResource("Resource_iektu")
 head_sprite = NodePath("UiAxeHeadColor")
 handle_sprite = NodePath("UiAxeHandleColor")
+trim_sprite = NodePath("UiAxeTrimColor")
+grip_color_sprite = NodePath("UiAxeGripColor")
+grip_lineart_sprite = NodePath("UiAxeGripLineart")
+gem_color_sprite = NodePath("UiAxeGemColor")
+gem_lineart_sprite = NodePath("UiAxeGemLineart")
 head_color_bronze = Color(0.42010704, 0.25042915, 0.17790818, 1)
 head_color_iron = Color(0.49468648, 0.49373996, 0.5669508, 1)
 head_color_steel = Color(0.7747115, 0.76990026, 0.85212654, 1)
@@ -31,24 +36,19 @@ texture = ExtResource("1_r7rd8")
 texture = ExtResource("2_6lweg")
 
 [node name="UiAxeTrimColor" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("3_1kvgo")
 
 [node name="UiAxeGemColor" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("4_01nlq")
 
 [node name="UiAxeGemLineart" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("5_y0i7a")
 
 [node name="UiAxePlaceholderLineart" type="Sprite2D" parent="."]
 texture = ExtResource("6_xsvx2")
 
 [node name="UiAxeGripColor" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("7_o5lf6")
 
 [node name="UiAxeGripLineart" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("8_vca28")

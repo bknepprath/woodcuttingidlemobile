@@ -268,50 +268,53 @@ theme_override_font_sizes/font_size = 146
 theme_override_styles/normal = SubResource("StyleBoxFlat_fos0i")
 text = "Chop"
 
-[node name="ugradehead" type="Button" parent="UI/UIRoot/MiddleMenu"]
+[node name="upgradehead" type="Button" parent="UI/UIRoot/MiddleMenu"]
 layout_mode = 0
-offset_left = 100.0
-offset_top = 1000.0
-offset_right = 420.0
-offset_bottom = 1141.0
-text = "upgrade head"
+offset_left = 1076.0
+offset_top = 223.0
+offset_right = 1227.0
+offset_bottom = 322.0
 
-[node name="WoodcutLevelLabel" type="Label" parent="UI/UIRoot"]
-visible = false
-custom_minimum_size = Vector2(109.225, 0)
+[node name="upgradehandle" type="Button" parent="UI/UIRoot/MiddleMenu"]
 layout_mode = 0
-offset_left = 100.0
-offset_top = 206.0
-offset_right = 209.225
-offset_bottom = 294.0
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 20
-theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxEmpty_r0du0")
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 780.0
+offset_top = 646.0
+offset_right = 931.0
+offset_bottom = 745.00024
 
-[node name="WoodcutXPLabel" type="Label" parent="UI/UIRoot"]
-visible = false
-custom_minimum_size = Vector2(109.225, 0)
+[node name="upgradetrim" type="Button" parent="UI/UIRoot/MiddleMenu"]
 layout_mode = 0
-offset_left = 103.0
-offset_top = 305.0
-offset_right = 212.225
-offset_bottom = 393.0
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 20
-theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxEmpty_r0du0")
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 780.0
+offset_top = 36.0
+offset_right = 931.0
+offset_bottom = 135.00024
+
+[node name="upgradegrip" type="Button" parent="UI/UIRoot/MiddleMenu"]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 516.0
+offset_right = 604.0
+offset_bottom = 615.00024
+
+[node name="upgradegem" type="Button" parent="UI/UIRoot/MiddleMenu"]
+layout_mode = 0
+offset_left = 1042.0
+offset_top = 503.0
+offset_right = 1193.0
+offset_bottom = 602.00024
+
+[node name="resetbutton" type="Button" parent="UI/UIRoot/MiddleMenu"]
+layout_mode = 0
+offset_left = 1114.0
+offset_top = 1146.0
+offset_right = 1265.0
+offset_bottom = 1245.0002
 
 [connection signal="timeout" from="Gameplay Timers/ChopTimer" to="." method="_on_chop_timer_timeout"]
 [connection signal="pressed" from="UI/UIRoot/MiddleMenu/ManualChopButton" to="." method="_on_manual_chop_button_pressed"]
-[connection signal="pressed" from="UI/UIRoot/MiddleMenu/ugradehead" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_ugradehead_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/upgradehead" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_upgradehead_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/upgradehandle" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_upgradehandle_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/upgradetrim" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_upgradetrim_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/upgradegrip" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_upgradegrip_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/upgradegem" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_upgradegem_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/resetbutton" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_resetbutton_pressed"]

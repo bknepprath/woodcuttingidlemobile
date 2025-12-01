@@ -249,3 +249,9 @@ func _on_chop_timer_timeout() -> void:
 
 func _on_manual_chop_button_pressed() -> void:
 	manual_chop()
+
+func reset_progress() -> void:
+	logs = 0
+	woodcut_xp = 0
+	woodcut_level = 1
+	print("PROGRESSION RESET")
