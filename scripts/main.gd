@@ -9,7 +9,7 @@ const COLLECT_LOG_SCENE: PackedScene = preload("res://scenes/CollectLog.tscn")
 # State
 # -------------------------------------------------------------------
 var logs: int = 0
-var xp: int = 0
+var woodcut_xp: int = 0
 var woodcut_level: int = 1
 
 # -------------------------------------------------------------------
@@ -55,12 +55,12 @@ func get_level_for_xp(total_xp: int) -> int:
 @export var chop_progress: ProgressBar
 @export var chop_timer: Timer
 
+@onready var woodcut_level_pill: UiPill = $UI/UIRoot/MarginContainer/VBoxContainer/Pill_WoodcutLevel
+@onready var woodcut_xp_pill: UiPill    = $UI/UIRoot/MarginContainer/VBoxContainer/Pill_WoodcutXP
 @onready var woodcutter: Node2D = $World/TreePosition/EnvironmentTreePlaceholder/CharacterWoodcutterPlaceholder
 @onready var log_spawn: Node2D = $World/TreePosition/EnvironmentTreePlaceholder/Point_Spawn_Log
 
 @onready var logs_label: Label = $UI/UIRoot/UI_Logs/LogPill/LogsCenter/LogsLabel
-@onready var woodcut_level_label: Label = $UI/UIRoot/WoodcutLevelLabel
-@onready var woodcut_xp_label: Label = $UI/UIRoot/WoodcutXPLabel
 
 
 func _ready() -> void:
@@ -127,8 +127,14 @@ func update_logs() -> void:
 	logs_label.text = format_number(logs)
 	
 func update_woodcut_ui() -> void:
-	woodcut_level_label.text = "Lvl " + str(woodcut_level)
-	woodcut_xp_label.text = format_number(xp) + " xp"
+	var lvl := get_level_for_xp(woodcut_xp)
+
+	if woodcut_level_pill:
+		woodcut_level_pill.value = lvl
+
+	if woodcut_xp_pill:
+		woodcut_xp_pill.value = woodcut_xp
+
 
 
 func add_logs(amount: int = 1) -> void:
@@ -157,8 +163,8 @@ func manual_chop() -> void:
 	chop_log()
 
 func add_xp(amount: int) -> void:
-	xp += amount
-	var new_level := get_level_for_xp(xp)
+	woodcut_xp += amount
+	var new_level := get_level_for_xp(woodcut_xp)
 
 	if new_level > woodcut_level:
 		woodcut_level = new_level

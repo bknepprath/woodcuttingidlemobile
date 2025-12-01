@@ -193,6 +193,34 @@ offset_bottom = 991.705
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("5_q8u5g")
 
+[node name="MarginContainer" type="MarginContainer" parent="UI/UIRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 1600
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UIRoot/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Pill_WoodcutXP" parent="UI/UIRoot/MarginContainer/VBoxContainer" instance=ExtResource("6_c01mt")]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+title = "XP"
+
+[node name="Pill_WoodcutLevel" parent="UI/UIRoot/MarginContainer/VBoxContainer" instance=ExtResource("6_c01mt")]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+title = "Level"
+
 [node name="MiddleMenu" type="Panel" parent="UI/UIRoot"]
 layout_mode = 1
 anchors_preset = 8
@@ -234,7 +262,16 @@ theme_override_font_sizes/font_size = 146
 theme_override_styles/normal = SubResource("StyleBoxFlat_fos0i")
 text = "Chop"
 
+[node name="ugradehead" type="Button" parent="UI/UIRoot/MiddleMenu"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 1000.0
+offset_right = 420.0
+offset_bottom = 1141.0
+text = "upgrade head"
+
 [node name="WoodcutLevelLabel" type="Label" parent="UI/UIRoot"]
+visible = false
 custom_minimum_size = Vector2(109.225, 0)
 layout_mode = 0
 offset_left = 100.0
@@ -252,6 +289,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WoodcutXPLabel" type="Label" parent="UI/UIRoot"]
+visible = false
 custom_minimum_size = Vector2(109.225, 0)
 layout_mode = 0
 offset_left = 103.0
@@ -268,8 +306,6 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UiPill" parent="UI" instance=ExtResource("6_c01mt")]
-visible = false
-
 [connection signal="timeout" from="Gameplay Timers/ChopTimer" to="." method="_on_chop_timer_timeout"]
 [connection signal="pressed" from="UI/UIRoot/MiddleMenu/ManualChopButton" to="." method="_on_manual_chop_button_pressed"]
+[connection signal="pressed" from="UI/UIRoot/MiddleMenu/ugradehead" to="UI/UIRoot/MiddleMenu/AxeWrapper" method="_on_ugradehead_pressed"]
