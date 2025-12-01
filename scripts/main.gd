@@ -52,10 +52,11 @@ func get_level_for_xp(total_xp: int) -> int:
 # -------------------------------------------------------------------
 # Node references
 # -------------------------------------------------------------------
-@onready var chop_progress: ProgressBar = $ChopProgress
-@onready var chop_timer: Timer = $ChopTimer
-@onready var woodcutter: Node2D = $World/ActionPoint/EnvironmentTreePlaceholder/CharacterWoodcutterPlaceholder
-@onready var log_spawn: Node2D = $World/ActionPoint/EnvironmentTreePlaceholder/Point_Spawn_Log
+@export var chop_progress: ProgressBar
+@export var chop_timer: Timer
+
+@onready var woodcutter: Node2D = $World/TreePosition/EnvironmentTreePlaceholder/CharacterWoodcutterPlaceholder
+@onready var log_spawn: Node2D = $World/TreePosition/EnvironmentTreePlaceholder/Point_Spawn_Log
 
 @onready var logs_label: Label = $UI/UIRoot/UI_Logs/LogPill/LogsCenter/LogsLabel
 @onready var woodcut_level_label: Label = $UI/UIRoot/WoodcutLevelLabel
@@ -63,6 +64,8 @@ func get_level_for_xp(total_xp: int) -> int:
 
 
 func _ready() -> void:
+	print("chop_progress =", chop_progress)
+	print("chop_timer   =", chop_timer)
 	update_logs()
 	# If Autostart is off, uncomment the next line:
 	# chop_timer.start()
@@ -70,14 +73,15 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# If the timer isn't running, keep the bar empty
-	if chop_timer.is_stopped():
-		chop_progress.value = 0.0
+	if chop_timer == null or chop_timer.is_stopped():
+		if chop_progress:
+			chop_progress.value = 0.0
 		return
 
 	# Timer counts down from wait_time to 0
-	# We want "time elapsed" from 0 to wait_time
 	var elapsed := chop_timer.wait_time - chop_timer.time_left
-	chop_progress.value = elapsed
+	if chop_progress:
+		chop_progress.value = elapsed
 
 	var ratio := elapsed / chop_timer.wait_time
 	animate_woodcutter(ratio)

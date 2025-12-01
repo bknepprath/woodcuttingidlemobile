@@ -1,0 +1,48 @@
+[gd_scene load_steps=12 format=3 uid="uid://daxx5tfm3sage"]
+
+[ext_resource type="Script" uid="uid://3llde385fv8e" path="res://scripts/AxeWrapper.gd" id="1_1wxem"]
+[ext_resource type="Texture2D" uid="uid://ds2hvj2ckntf6" path="res://assets/sprites/ui/ui_axe_handle_color.png" id="1_r7rd8"]
+[ext_resource type="Script" uid="uid://byga4xgs7ehy3" path="res://scripts/axe_state.gd" id="2_6h1af"]
+[ext_resource type="Texture2D" uid="uid://dyfevfg0mvrx4" path="res://assets/sprites/ui/ui_axe_head_color.png" id="2_6lweg"]
+[ext_resource type="Texture2D" uid="uid://chi5l37tirwwf" path="res://assets/sprites/ui/ui_axe_trim_color.png" id="3_1kvgo"]
+[ext_resource type="Texture2D" uid="uid://ccjw2o6dyjuu3" path="res://assets/sprites/ui/ui_axe_gem_color.png" id="4_01nlq"]
+[ext_resource type="Texture2D" uid="uid://ddqj7lc5vjrsd" path="res://assets/sprites/ui/ui_axe_gem_lineart.png" id="5_y0i7a"]
+[ext_resource type="Texture2D" uid="uid://dx03fteti0syb" path="res://assets/sprites/ui/ui_axe_placeholder_lineart.png" id="6_xsvx2"]
+[ext_resource type="Texture2D" uid="uid://bss6wsuhfbxnh" path="res://assets/sprites/ui/ui_axe_grip_color.png" id="7_o5lf6"]
+[ext_resource type="Texture2D" uid="uid://bsmwq0gu2qd86" path="res://assets/sprites/ui/ui_axe_grip_lineart.png" id="8_vca28"]
+
+[sub_resource type="Resource" id="Resource_iektu"]
+script = ExtResource("2_6h1af")
+metadata/_custom_type_script = "uid://byga4xgs7ehy3"
+
+[node name="AxeWrapper" type="Node2D" node_paths=PackedStringArray("head_sprite")]
+script = ExtResource("1_1wxem")
+axe_state = SubResource("Resource_iektu")
+head_sprite = NodePath("UiAxeHeadColor")
+head_color_bronze = Color(0.42010704, 0.25042915, 0.17790818, 1)
+head_color_iron = Color(0.49468648, 0.49373996, 0.5669508, 1)
+head_color_steel = Color(0.7747115, 0.76990026, 0.85212654, 1)
+
+[node name="UiAxeHandleColor" type="Sprite2D" parent="."]
+texture = ExtResource("1_r7rd8")
+
+[node name="UiAxeHeadColor" type="Sprite2D" parent="."]
+texture = ExtResource("2_6lweg")
+
+[node name="UiAxeTrimColor" type="Sprite2D" parent="."]
+texture = ExtResource("3_1kvgo")
+
+[node name="UiAxeGemColor" type="Sprite2D" parent="."]
+texture = ExtResource("4_01nlq")
+
+[node name="UiAxeGemLineart" type="Sprite2D" parent="."]
+texture = ExtResource("5_y0i7a")
+
+[node name="UiAxePlaceholderLineart" type="Sprite2D" parent="."]
+texture = ExtResource("6_xsvx2")
+
+[node name="UiAxeGripColor" type="Sprite2D" parent="."]
+texture = ExtResource("7_o5lf6")
+
+[node name="UiAxeGripLineart" type="Sprite2D" parent="."]
+texture = ExtResource("8_vca28")
