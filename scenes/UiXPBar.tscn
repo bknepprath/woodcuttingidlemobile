@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://rif6nuyfiina"]
+
+[ext_resource type="Script" uid="uid://d3uyado5ehiqa" path="res://scenes/UiXPBar.gd" id="1_f0f4q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jdapy"]
+bg_color = Color(0, 0, 0, 0.7019608)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0f4q"]
+bg_color = Color(1, 1, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="UiXPBar" type="PanelContainer"]
+custom_minimum_size = Vector2(280, 0)
+offset_right = 280.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jdapy")
+script = ExtResource("1_f0f4q")
+
+[node name="WoodcutLVLBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_f0f4q")
+value = 27.06
+show_percentage = false

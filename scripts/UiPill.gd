@@ -1,3 +1,4 @@
+@tool
 class_name UiPill
 extends PanelContainer
 
@@ -5,31 +6,36 @@ extends PanelContainer
 @onready var value_label: Label = $HBox/ValueLabel
 @onready var icon_rect: TextureRect = $HBox/Icon
 
-@export var title: String:
+@export var title: String = "Preview":
 	set(new_title):
 		title = new_title
-		if is_node_ready():
-			title_label.text = new_title
+		if is_inside_tree():
+			title_label.text = title
 
 @export var value: int = 0:
 	set(v):
 		value = v
-		if is_node_ready():
-			value_label.text = str(v)
+		if is_inside_tree():
+			_update_value_text()
 
-@export var icon: Texture2D:
-	set(tex):
-		icon = tex
-		if is_node_ready():
-			icon_rect.texture = tex
+# NEW: optional suffix, e.g. "XP"
+@export var suffix: String = "":
+	set(s):
+		suffix = s
+		if is_inside_tree():
+			_update_value_text()
 
 func _ready() -> void:
-	# Make sure the visuals match whatever the exports currently are
 	title_label.text = title
-	value_label.text = str(value)
-	icon_rect.texture = icon
+	_update_value_text()
+
+func _update_value_text() -> void:
+	if suffix == "":
+		value_label.text = str(value)
+	else:
+		value_label.text = "%d %s" % [value, suffix]
 
 func set_value(v: int) -> void:
 	value = v
-	if is_node_ready():
-		value_label.text = str(v)
+	if is_inside_tree():
+		_update_value_text()

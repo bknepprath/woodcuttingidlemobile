@@ -47,13 +47,44 @@ func get_level_for_xp(total_xp: int) -> int:
 			return lvl
 
 		lvl += 1
+
 	return lvl
+
+func get_level_progress(total_xp: int) -> float:
+	var lvl := 1
+	var points := 0.0
+	var xp_to_next := 0
+	var prev_threshold := 0
+
+	while true:
+		points += floor(lvl + 300.0 * pow(2.0, float(lvl) / 7.0))
+		xp_to_next = floor(points / 4.0)
+
+		if xp_to_next > total_xp:
+			var gained_in_level := total_xp - prev_threshold
+			var needed_for_level := xp_to_next - prev_threshold
+			if needed_for_level <= 0:
+				return 0.0
+			return clamp(
+				float(gained_in_level) / float(needed_for_level),
+				0.0,
+				1.0
+			)
+
+		lvl += 1
+		prev_threshold = xp_to_next
+
+	# Fallback, never really reached but silences the error
+	return 1.0
+
+
 
 # -------------------------------------------------------------------
 # Node references
 # -------------------------------------------------------------------
 @export var chop_progress: ProgressBar
 @export var chop_timer: Timer
+@export var woodcut_level_bar: UiXPBar
 
 @onready var woodcut_level_pill: UiPill = $UI/UIRoot/MarginContainer/VBoxContainer/Pill_WoodcutLevel
 @onready var woodcut_xp_pill: UiPill    = $UI/UIRoot/MarginContainer/VBoxContainer/Pill_WoodcutXP
@@ -135,6 +166,20 @@ func update_woodcut_ui() -> void:
 	if woodcut_xp_pill:
 		woodcut_xp_pill.value = woodcut_xp
 
+	if woodcut_level_bar:
+		var ratio := get_level_progress(woodcut_xp)
+		woodcut_level_bar.set_ratio(ratio)
+
+
+func get_xp_for_level(level: int) -> int:
+	var points := 0.0
+	var xp_to_next := 0
+
+	for lvl in range(1, level):
+		points += floor(lvl + 300.0 * pow(2.0, float(lvl) / 7.0))
+		xp_to_next = floor(points / 4.0)
+
+	return xp_to_next
 
 
 func add_logs(amount: int = 1) -> void:
